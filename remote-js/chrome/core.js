@@ -12,6 +12,11 @@ var widget = {
     this.options_ = options;
     this.handle_ = createHandle();
     this.handle_.widget = this;
+    this.__defineSetter__(
+      "content",
+      function(value) {
+        sendMessage("widget:setContent", this.handle_, value);
+      });
   },
 
   add: function(widget) {
@@ -23,7 +28,7 @@ var widget = {
 };
 
 registerReceiver("widget:onClick", function(name, handle) {
-  handle.widget.options_.onClick();
+  handle.widget.options_.onClick.call(handle.widget);
 });
 
 var xhr = {

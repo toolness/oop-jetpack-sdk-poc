@@ -5,6 +5,7 @@
     "contributors": [
         "Benjamin Smedberg (http://benjamin.smedbergs.us/blog/) <bsmedberg@mozilla.com>"
     ],
+    "data": "remote-js",
     "version": "0.1",
     "license": "MPL 1.1/GPL 2.0/LGPL 2.1",
     "id": "jid0-Od95Sm5HwAdBtQgD60hZBkigBAU"

@@ -29,15 +29,15 @@ also sets up some message receivers that the remote process can
 communicate with.
 
 All code executed in the remote process is contained in the
-<code>[data/remote-js][]</code> directory. Within it are two
+<code>[remote-js][]</code> directory. Within it are two
 subdirectories containing privileged (a.k.a. "chrome") code and
 less-privileged (a.k.a. "sub-chrome") code.
 
-<code>[data/remote-js/chrome/core.js][]</code> manages communication
+<code>[remote-js/chrome/core.js][]</code> manages communication
 with the parent process and has access to privileged message-sending
 globals that sub-chrome code doesn't have.
 
-<code>[data/remote-js/sub-chrome/main.js][]</code> would typically be
+<code>[remote-js/sub-chrome/main.js][]</code> would typically be
 the code written by an add-on developer&mdash;that is, it's the code
 that would normally be in `lib/main.js`, were the Jetpack SDK to
 support Electrolysis out-of-the-box.
@@ -45,6 +45,6 @@ support Electrolysis out-of-the-box.
   [lib/main.js]: http://github.com/toolness/oop-jetpack-sdk-poc/blob/master/lib/main.js
   [nsIJetpackService]: http://mxr.mozilla.org/mozilla-central/source/js/jetpack/nsIJetpackService.idl
   [nsIJetpack]: http://mxr.mozilla.org/mozilla-central/source/js/jetpack/nsIJetpack.idl
-  [data/remote-js]: http://github.com/toolness/oop-jetpack-sdk-poc/tree/master/data/remote-js/
-  [data/remote-js/chrome/core.js]: http://github.com/toolness/oop-jetpack-sdk-poc/blob/master/data/remote-js/chrome/core.js
-  [data/remote-js/sub-chrome/main.js]: http://github.com/toolness/oop-jetpack-sdk-poc/blob/master/data/remote-js/sub-chrome/main.js
+  [remote-js]: http://github.com/toolness/oop-jetpack-sdk-poc/tree/master/remote-js/
+  [remote-js/chrome/core.js]: http://github.com/toolness/oop-jetpack-sdk-poc/blob/master/remote-js/chrome/core.js
+  [remote-js/sub-chrome/main.js]: http://github.com/toolness/oop-jetpack-sdk-poc/blob/master/remote-js/sub-chrome/main.js

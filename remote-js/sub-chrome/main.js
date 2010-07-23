@@ -1,4 +1,5 @@
-// This is an active module of the My Add-on Add-on
+// This is the main script of a Jetpack-based add-on.
+
 const widget = require("widget");
 
 exports.main = function() {

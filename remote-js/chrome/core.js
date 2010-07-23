@@ -1,3 +1,6 @@
+// Set up our "proxy" objects that just send messages to our parent
+// process to do the real work.
+
 var console = {
   log: function console_log(msg) {
     sendMessage('console:log', "" + msg);
@@ -36,14 +39,22 @@ xhr.XMLHttpRequest.prototype = {
   },
 
   send: function xhr_XHR_send(data) {
+    // createHandle() allows us to pass our object references back and
+    // forth with the parent process.
     this.handle = createHandle();
     this.handle.xhr = this;
-    
+
+    // Here sendMessage() sends a message asynchronously to
+    // the parent process and returns immediately, while
+    // callMessage() blocks until a response is received.
     (this.async ? sendMessage : callMessage)("xhr:send", this.handle,
                                              this.method, this.uri,
                                              this.async, data);
   }
 };
+
+// Register our own message receivers that the parent process
+// can use to initiate communication with us.
 
 registerReceiver(
   "xhr:onreadystatechange",
@@ -54,27 +65,26 @@ registerReceiver(
     handle.xhr.onreadystatechange();
   });
 
-function main_require(name) {
-  switch (name) {
-  case "widget":
-    return widget;
-  case "xhr":
-    return xhr;
-  }
-  throw Error("Unknown package '" + name + "'.");
-}
-
 registerReceiver(
   "doMain",
   function(name, script) {
-    // create the sandbox for the main script
+    // Create the sandbox for the main script.
     var main = createSandbox();
 
-    // set up globals of the sandbox
-    main.console = console;
-    main.require = main_require;
+    // Set up the globals of the sandbox.
     main.exports = {};
+    main.console = console;
+    main.require = function require(name) {
+      switch (name) {
+      case "widget":
+        return widget;
+      case "xhr":
+        return xhr;
+      }
+      throw new Error("Unknown package '" + name + "'.");
+    };
 
+    // Run the add-on!
     evalInSandbox(main, script);
     main.exports.main();
   });

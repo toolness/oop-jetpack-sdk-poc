@@ -20,6 +20,27 @@ support for out-of-process add-ons into the Jetpack platform itself.
   [Jetpack SDK 0.5]: https://jetpack.mozillalabs.com/sdk/0.5/docs/
   [Firefox nightly]: http://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/
 
+## Usage ##
+
+1. Activate your SDK and clone this git repository in the `packages`
+   subdirectory of your SDK and enter it:
+
+    `git clone git://github.com/toolness/oop-jetpack-sdk-poc.git`
+
+    `cd oop-jetpack-sdk-poc`
+
+2. Run the addon against your installation of the latest Firefox nightly.
+   On OS X systems, you'll need to type something like this:
+
+    `cfx run -a firefox -b /Applications/Minefield.app`
+
+3. Once Firefox starts up, you should see a widget at the bottom of the
+   browser labeled "Click me!" (it may be truncated due to size constraints).
+   Do what it says.
+
+4. The widget label should change to "..." for a moment and then change
+   to the Twitter status of [toolness](http://twitter.com/toolness).
+
 ## Code Walkthrough ##
 
 The add-on's entry point is in <code>[lib/start-remote.js][]</code>. This code

@@ -22,7 +22,7 @@ support for out-of-process add-ons into the Jetpack platform itself.
 
 ## Code Walkthrough ##
 
-The add-on's entry point is in <code>[lib/main.js][]</code>. This code
+The add-on's entry point is in <code>[lib/start-remote.js][]</code>. This code
 uses <code>[nsIJetpackService][]</code> to create a
 <code>[nsIJetpack][]</code>, which represents a remote process. It
 also sets up some message receivers that the remote process can
@@ -42,7 +42,7 @@ the code written by an add-on developer&mdash;that is, it's the code
 that would normally be in `lib/main.js`, were the Jetpack SDK to
 support Electrolysis out-of-the-box.
 
-  [lib/main.js]: http://github.com/toolness/oop-jetpack-sdk-poc/blob/master/lib/main.js
+  [lib/start-remote.js]: http://github.com/toolness/oop-jetpack-sdk-poc/blob/master/lib/start-remote.js
   [nsIJetpackService]: http://mxr.mozilla.org/mozilla-central/source/js/jetpack/nsIJetpackService.idl
   [nsIJetpack]: http://mxr.mozilla.org/mozilla-central/source/js/jetpack/nsIJetpack.idl
   [remote-js]: http://github.com/toolness/oop-jetpack-sdk-poc/tree/master/remote-js/

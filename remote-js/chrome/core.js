@@ -49,12 +49,9 @@ xhr.XMLHttpRequest.prototype = {
     this.handle = createHandle();
     this.handle.xhr = this;
 
-    // Here sendMessage() sends a message asynchronously to
-    // the parent process and returns immediately, while
-    // callMessage() blocks until a response is received.
-    (this.async ? sendMessage : callMessage)("xhr:send", this.handle,
-                                             this.method, this.uri,
-                                             this.async, data);
+    if (!this.async)
+      throw new Error('synchronous XHRs are not yet supported.');
+    sendMessage("xhr:async-send", this.handle, this.method, this.uri, data);
   }
 };
 

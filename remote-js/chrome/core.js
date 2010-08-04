@@ -49,9 +49,20 @@ xhr.XMLHttpRequest.prototype = {
     this.handle = createHandle();
     this.handle.xhr = this;
 
-    if (!this.async)
-      throw new Error('synchronous XHRs are not yet supported.');
-    sendMessage("xhr:async-send", this.handle, this.method, this.uri, data);
+    if (this.async)
+      sendMessage("xhr:async-send", this.handle, this.method, this.uri, data);
+    else {
+      callMessage("xhr:sync-send", this.handle, this.method, this.uri, data);
+
+      var response;
+      while (!response)
+        // It's too bad we can't sleep the thread or anything here, at the very
+        // least. Once bug 582808 is resolved, though, we'll be able to do
+        // this without any kind of polling.
+        response = callMessage("xhr:sync-send:poll", this.handle)[0];
+      for (name in response)
+        this.handle.xhr[name] = response[name];
+    }
   }
 };
 
